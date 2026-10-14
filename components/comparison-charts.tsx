@@ -59,9 +59,13 @@ export function ComparisonCharts({
   ];
 
   return (
-    <section className="grid gap-3 lg:grid-cols-2">
-      <ChartCard title="Cache occupancy" caption="Simulated GiB reserved vs virtual time">
-        <ResponsiveContainer width="100%" height={220}>
+    <section className="grid h-full min-h-0 grid-cols-6 grid-rows-2 gap-3 overflow-hidden">
+      <ChartCard
+        className="col-span-3"
+        title="Cache occupancy"
+        caption="Simulated GiB reserved vs virtual time"
+      >
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart data={occupancy} margin={{ left: 8, right: 12, top: 8, bottom: 0 }}>
             <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
             <XAxis
@@ -108,10 +112,11 @@ export function ComparisonCharts({
       </ChartCard>
 
       <ChartCard
+        className="col-span-3"
         title="Cumulative recomputed prefix"
         caption="Tokens that had already been processed, then paid for again"
       >
-        <ResponsiveContainer width="100%" height={220}>
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart data={recompute} margin={{ left: 8, right: 12, top: 8, bottom: 0 }}>
             <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
             <XAxis
@@ -152,8 +157,12 @@ export function ComparisonCharts({
         </ResponsiveContainer>
       </ChartCard>
 
-      <ChartCard title="Reuse comparison" caption="Higher is better. Separate scale.">
-        <ResponsiveContainer width="100%" height={180}>
+      <ChartCard
+        className="col-span-2"
+        title="Reuse comparison"
+        caption="Higher is better. Separate scale."
+      >
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart data={bars} margin={{ left: 8, right: 12, top: 8, bottom: 0 }}>
             <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
             <XAxis dataKey="metric" stroke="#adabb9" fontSize={11} />
@@ -172,45 +181,51 @@ export function ComparisonCharts({
         </ResponsiveContainer>
       </ChartCard>
 
-      <div className="grid gap-3">
-        <ChartCard title="Redundant prefill" caption="Lower is better. Token count.">
-          <ResponsiveContainer width="100%" height={160}>
-            <BarChart data={prefillBars}>
-              <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
-              <XAxis dataKey="metric" stroke="#adabb9" fontSize={11} />
-              <YAxis
-                stroke="#adabb9"
-                fontSize={11}
-                tickFormatter={(value) => formatTokens(Number(value))}
-              />
-              <Tooltip
-                contentStyle={tooltipStyle}
-                formatter={(value, name) => [formatTokens(Number(value)), String(name)]}
-              />
-              <Bar dataKey="LRU" fill="#92929f" radius={4} />
-              <Bar dataKey="Trajectory" fill="#829ed2" radius={4} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-        <ChartCard title="Simulated makespan" caption="Lower is better. Virtual seconds.">
-          <ResponsiveContainer width="100%" height={160}>
-            <BarChart data={makespanBars}>
-              <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
-              <XAxis dataKey="metric" stroke="#adabb9" fontSize={11} />
-              <YAxis stroke="#adabb9" fontSize={11} unit=" s" />
-              <Tooltip
-                contentStyle={tooltipStyle}
-                formatter={(value, name) => [
-                  `${Number(value).toFixed(2)} s`,
-                  String(name),
-                ]}
-              />
-              <Bar dataKey="LRU" fill="#92929f" radius={4} />
-              <Bar dataKey="Trajectory" fill="#829ed2" radius={4} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-      </div>
+      <ChartCard
+        className="col-span-2"
+        title="Redundant prefill"
+        caption="Lower is better. Token count."
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={prefillBars}>
+            <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
+            <XAxis dataKey="metric" stroke="#adabb9" fontSize={11} />
+            <YAxis
+              stroke="#adabb9"
+              fontSize={11}
+              tickFormatter={(value) => formatTokens(Number(value))}
+            />
+            <Tooltip
+              contentStyle={tooltipStyle}
+              formatter={(value, name) => [formatTokens(Number(value)), String(name)]}
+            />
+            <Bar dataKey="LRU" fill="#92929f" radius={4} />
+            <Bar dataKey="Trajectory" fill="#829ed2" radius={4} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
+      <ChartCard
+        className="col-span-2"
+        title="Simulated makespan"
+        caption="Lower is better. Virtual seconds."
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={makespanBars}>
+            <CartesianGrid stroke="#3b3946" strokeDasharray="3 3" />
+            <XAxis dataKey="metric" stroke="#adabb9" fontSize={11} />
+            <YAxis stroke="#adabb9" fontSize={11} unit=" s" />
+            <Tooltip
+              contentStyle={tooltipStyle}
+              formatter={(value, name) => [
+                `${Number(value).toFixed(2)} s`,
+                String(name),
+              ]}
+            />
+            <Bar dataKey="LRU" fill="#92929f" radius={4} />
+            <Bar dataKey="Trajectory" fill="#829ed2" radius={4} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
     </section>
   );
 }
@@ -226,16 +241,24 @@ function ChartCard({
   title,
   caption,
   children,
+  className,
 }: {
   title: string;
   caption: string;
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <article className="rounded-[14px] border border-border bg-panel p-4">
-      <h2 className="text-[13px] tracking-[0.16em] text-mute uppercase">{title}</h2>
-      <p className="mt-1 mb-3 text-[12px] text-mute">{caption}</p>
-      {children}
+    <article
+      className={`flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] border border-border bg-panel px-3 py-2.5 ${className ?? ""}`}
+    >
+      <h2 className="shrink-0 text-[12px] tracking-[0.16em] text-mute uppercase">
+        {title}
+      </h2>
+      <p className="mt-0.5 mb-1.5 shrink-0 truncate text-[11px] text-mute">
+        {caption}
+      </p>
+      <div className="min-h-0 min-w-0 flex-1">{children}</div>
     </article>
   );
 }

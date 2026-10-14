@@ -211,35 +211,37 @@ export function Dashboard() {
               <PolicyToggle policy={policy} onPolicy={setPolicy} />
             </div>
           </div>
-          <PlaybackControls
-            playheadMs={playheadMs}
-            makespanMs={makespanMs}
-            isPlaying={isPlaying}
-            reducedMotion={reducedMotion}
-            onToggle={() => {
-              if (reducedMotion) {
-                setPlayheadMs(makespanMs);
-                return;
-              }
-              setIsPlaying((value) => !value);
-            }}
-            onReplay={() => {
-              setPlayheadMs(0);
-              setIsPlaying(!reducedMotion);
-            }}
-            onSeek={(ms) => {
-              setIsPlaying(false);
-              setPlayheadMs(ms);
-            }}
-            onNextEviction={() => {
-              const nxt = nextEviction(visible.evictions, playheadMs);
-              if (!nxt) return;
-              setIsPlaying(false);
-              setPlayheadMs(nxt.atMs);
-              setSelectedEviction(nxt);
-              setSelectedAgentId(nxt.evictedAgentId);
-            }}
-          />
+          {labPane !== "charts" ? (
+            <PlaybackControls
+              playheadMs={playheadMs}
+              makespanMs={makespanMs}
+              isPlaying={isPlaying}
+              reducedMotion={reducedMotion}
+              onToggle={() => {
+                if (reducedMotion) {
+                  setPlayheadMs(makespanMs);
+                  return;
+                }
+                setIsPlaying((value) => !value);
+              }}
+              onReplay={() => {
+                setPlayheadMs(0);
+                setIsPlaying(!reducedMotion);
+              }}
+              onSeek={(ms) => {
+                setIsPlaying(false);
+                setPlayheadMs(ms);
+              }}
+              onNextEviction={() => {
+                const nxt = nextEviction(visible.evictions, playheadMs);
+                if (!nxt) return;
+                setIsPlaying(false);
+                setPlayheadMs(nxt.atMs);
+                setSelectedEviction(nxt);
+                setSelectedAgentId(nxt.evictedAgentId);
+              }}
+            />
+          ) : null}
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
             {labPane === "residency" ? (
               <CacheHeatmap
@@ -268,7 +270,7 @@ export function Dashboard() {
               />
             ) : null}
             {labPane === "charts" ? (
-              <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+              <div className="min-h-0 flex-1 overflow-hidden">
                 <ComparisonCharts
                   lru={run.lru}
                   aware={run.aware}
