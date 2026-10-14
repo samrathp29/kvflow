@@ -10,9 +10,6 @@
     "test": "vitest run",
     "benchmark": "tsx scripts/benchmark.ts"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
-  },
   "dependencies": {
     "lucide-react": "^1.56.0",
     "next": "16.4.0",
