@@ -29,7 +29,13 @@ export function parseShareConfig(search: string): {
   const params = new URLSearchParams(
     search.startsWith("?") ? search.slice(1) : search,
   );
-  if ([...params.keys()].length === 0) return null;
+  const hasKnown =
+    params.has("preset") ||
+    params.has("policy") ||
+    params.has("agents") ||
+    params.has("memory") ||
+    params.has("seed");
+  if (!hasKnown) return null;
 
   const presetRaw = params.get("preset") ?? DEFAULT_PRESET;
   const policyRaw = params.get("policy") ?? DEFAULT_POLICY;

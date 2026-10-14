@@ -23,10 +23,7 @@ export function EvictionInspector({
     : [];
 
   return (
-    <section
-      id="inspector"
-      className="rounded-[14px] border border-border bg-panel p-4"
-    >
+    <section className="rounded-[14px] border border-border bg-panel p-4">
       <h2 className="text-[13px] tracking-[0.16em] text-mute uppercase">
         Eviction inspector
       </h2>

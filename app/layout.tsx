@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KVFlow — Inference is a memory problem",
+  title: "KVFlow",
   description:
     "A deterministic simulator of multi-turn agents competing for KV-cache memory. Compares LRU with a causal trajectory-aware retention heuristic. Simulated, not measured on GPUs.",
 };
@@ -22,9 +22,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden antialiased`}
     >
-      <body className="graph-paper min-h-full font-sans text-ink">{children}</body>
+      <body className="graph-paper h-full overflow-hidden font-sans text-ink">
+        {children}
+      </body>
     </html>
   );
 }

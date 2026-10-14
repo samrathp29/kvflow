@@ -43,7 +43,7 @@ export function MetricStrip({
   });
 
   return (
-    <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="flex min-w-0 gap-3 overflow-x-auto pb-1">
       <MetricCard
         label="Input reuse"
         value={formatPct(selectedReuse)}
@@ -126,7 +126,7 @@ function MetricCard({
           ? "text-success"
           : "text-warning";
   return (
-    <article className="rounded-[14px] border border-border bg-panel p-4">
+    <article className="min-w-[220px] flex-1 rounded-[14px] border border-border bg-panel p-4">
       <div className="text-[11px] tracking-[0.14em] text-mute uppercase">
         {label}
       </div>
@@ -146,7 +146,7 @@ function MetricCard({
               : ""}
         </span>
       </div>
-      <p className="mt-2 text-[11px] leading-4 text-mute">{hint}</p>
+      <p className="sr-only">{hint}</p>
     </article>
   );
 }

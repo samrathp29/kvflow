@@ -40,13 +40,30 @@
 
 html,
 body {
+  height: 100%;
   background: var(--background);
   color: var(--text-primary);
 }
 
 body {
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  min-height: 100%;
+}
+
+.formula-display .katex,
+.formula-inline .katex {
+  color: var(--text-primary);
+}
+
+.formula-display .katex {
+  font-size: 1.08em;
+}
+
+.formula-inline .katex {
+  font-size: 1.02em;
+}
+
+.formula-display .katex-display {
+  margin: 0.15em 0;
 }
 
 .graph-paper {

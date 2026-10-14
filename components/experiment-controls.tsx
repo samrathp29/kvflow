@@ -45,7 +45,7 @@ export function ExperimentControls({
     draft.seed !== runConfig.seed;
 
   return (
-    <aside className="flex flex-col gap-5 border-border md:w-[280px] md:shrink-0 md:border-r md:pr-5">
+    <aside className="flex flex-col gap-5">
       <div>
         <Label>Workload</Label>
         <div className="mt-2 grid grid-cols-2 gap-2">
@@ -137,24 +137,8 @@ export function ExperimentControls({
 
       <div>
         <Label>Visible policy</Label>
-        <div className="mt-2 grid grid-cols-2 gap-1 rounded-[10px] bg-panel-elevated p-1">
-          {(
-            [
-              ["lru", "LRU"],
-              ["trajectory-aware", "Trajectory"],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => onPolicy(id)}
-              className={`rounded-md py-1.5 text-[12px] transition-colors duration-200 ${
-                policy === id ? "bg-accent text-[#1c1b21]" : "text-mute hover:text-ink"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+        <div className="mt-2">
+          <PolicyToggle policy={policy} onPolicy={onPolicy} />
         </div>
       </div>
 
@@ -224,6 +208,36 @@ export function ExperimentControls({
         </button>
       </div>
     </aside>
+  );
+}
+
+export function PolicyToggle({
+  policy,
+  onPolicy,
+}: {
+  policy: PolicyName;
+  onPolicy: (policy: PolicyName) => void;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-1 rounded-[10px] bg-panel-elevated p-1">
+      {(
+        [
+          ["lru", "LRU"],
+          ["trajectory-aware", "Trajectory"],
+        ] as const
+      ).map(([id, label]) => (
+        <button
+          key={id}
+          type="button"
+          onClick={() => onPolicy(id)}
+          className={`rounded-md py-1.5 text-[12px] transition-colors duration-200 ${
+            policy === id ? "bg-accent text-[#1c1b21]" : "text-mute hover:text-ink"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
   );
 }
 

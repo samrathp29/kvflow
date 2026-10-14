@@ -70,5 +70,6 @@ describe("URL config", () => {
     expect(parseShareConfig("?preset=magic&agents=25&memory=8&seed=42")).toBeNull();
     expect(parseShareConfig("?preset=code&agents=400&memory=8&seed=42")).toBeNull();
     expect(parseShareConfig("?preset=code&agents=25&memory=7&seed=42")).toBeNull();
+    expect(parseShareConfig("?fresh=1")).toBeNull();
   });
 });

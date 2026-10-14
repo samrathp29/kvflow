@@ -35,7 +35,7 @@ export function AgentTimeline({
   }
 
   return (
-    <section className="rounded-[14px] border border-border bg-panel p-4">
+    <section className="flex h-full min-h-0 flex-col rounded-[14px] border border-border bg-panel p-4">
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-[13px] tracking-[0.16em] text-mute uppercase">
@@ -52,7 +52,7 @@ export function AgentTimeline({
           <LegendSwatch color={PHASE_COLOR["tool-wait"]} label="Tool wait" />
         </ul>
       </div>
-      <div className="max-h-[420px] overflow-auto">
+      <div className="min-h-0 flex-1 overflow-auto">
         <div className="relative min-w-[640px]">
           {agentIds.map((agentId) => {
             const segments = byAgent.get(agentId) ?? [];

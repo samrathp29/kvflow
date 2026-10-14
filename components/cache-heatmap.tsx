@@ -35,7 +35,7 @@ export function CacheHeatmap({
   const playheadPct = makespanMs <= 0 ? 0 : (playheadMs / makespanMs) * 100;
 
   return (
-    <section className="rounded-[14px] border border-border bg-panel p-4">
+    <section className="flex min-h-0 flex-1 flex-col rounded-[14px] border border-border bg-panel p-4">
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-[13px] tracking-[0.16em] text-mute uppercase">
@@ -47,7 +47,7 @@ export function CacheHeatmap({
         </div>
         <Legend />
       </div>
-      <div className="relative overflow-x-auto">
+      <div className="relative min-h-0 flex-1 overflow-auto">
         <div
           className="relative min-w-[640px]"
           style={{
